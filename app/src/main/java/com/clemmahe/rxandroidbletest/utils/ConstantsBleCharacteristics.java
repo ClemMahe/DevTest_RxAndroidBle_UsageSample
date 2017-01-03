@@ -1,0 +1,28 @@
+package com.clemmahe.rxandroidbletest.utils;
+
+import java.util.UUID;
+
+/**
+ * Created by CMA10935 on 03/01/2017.
+ */
+
+public class ConstantsBleCharacteristics {
+
+    public static String END_BLUETOOTH_CHARACTERISTIC = "-0000-1000-8000-00805f9b34fb";
+
+    public static UUID UUID_CHARACTERISTIC_WRITE =  UUID.fromString("0000ff31" + END_BLUETOOTH_CHARACTERISTIC);
+    public static UUID UUID_CHARACTERISTIC_READ =  UUID.fromString("0000ff32" + END_BLUETOOTH_CHARACTERISTIC);
+    public static UUID UUID_CLIENT_CHARACTERISTIC_CONFIG =  UUID.fromString("00002902" + END_BLUETOOTH_CHARACTERISTIC);
+
+    public static final UUID UUID_DEVICE_INFORMATION = UUID.fromString("0000180a" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID MODEL_NUMBER_STRING = UUID.fromString("00002a24" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID SERIAL_NUMBER_STRING = UUID.fromString("00002a25" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID HARDWARE_VERSION_STRING = UUID.fromString("00002a27" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID FIRMWARE_VERSION_STRING = UUID.fromString("00002a26" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID MANUFACTURE_NAME_STRING = UUID.fromString("00002a29" + END_BLUETOOTH_CHARACTERISTIC);
+    public static final UUID SOFTWARE_VERSION_STRING = UUID.fromString("00002a28" + END_BLUETOOTH_CHARACTERISTIC);
+    private static final UUID BATTERY_SERVICE_UUID = UUID.fromString("0000180F" + END_BLUETOOTH_CHARACTERISTIC);
+    private static final UUID BATTERY_LEVEL_UUID = UUID.fromString("00002a19" + END_BLUETOOTH_CHARACTERISTIC);
+
+
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RxAndroidBleTest</string>
+    <string name="functions_text_button_connect">Connect</string>
+    <string name="functions_text_button_disconnect">Disconnect</string>
+    <string name="functions_text_textview_defaultstate">State not defined</string>
+    <string name="functions_text_button_getsettings">Get settings</string>
+</resources>
