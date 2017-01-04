@@ -50,7 +50,7 @@ public class ListDevicesActivity extends BaseActivity implements AdapterView.OnI
     protected void onPause() {
         super.onPause();
         // When done, just unsubscribe.
-        //if(scanSubscription!=null) scanSubscription.unsubscribe();
+        if(scanSubscription!=null) scanSubscription.unsubscribe();
     }
 
 
