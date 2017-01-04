@@ -65,23 +65,6 @@ public class FunctionsDeviceActivity extends BaseActivity {
                         .subscribe(
                                 connectionState -> {
                                     handleConnectionState(connectionState);
-
-                                    //Get settings
-                                    connection.setupNotification(ConstantsBleCharacteristics.UUID_CHARACTERISTIC_READ)
-                                            .doOnNext(notificationObservable -> {
-                                                //Read
-                                            })
-                                            .flatMap(notificationObservable -> notificationObservable) // <-- Notification has been set up, now observe value changes.
-                                            .subscribe(
-                                                    bytes -> {
-                                                        //handleNotification();
-                                                        String hexByte = ByteUtils.byteArrayToHexString(bytes, true);
-                                                        BleLogger.logData("GetSettings : " + hexByte);
-                                                    },
-                                                    throwable -> {
-                                                        //Handle notification
-                                                    }
-                                            );
                                 },
                                 throwable -> {
                                     handleSnackMessage("Error state connection : " + throwable.getMessage());
@@ -109,6 +92,25 @@ public class FunctionsDeviceActivity extends BaseActivity {
                         connection = rxBleConnection;
                         connection.discoverServices().subscribe(rxBleDeviceServices -> {
                             handleSnackMessage("Service discovered");
+
+                            //Setup notif
+                            connection.setupNotification(ConstantsBleCharacteristics.UUID_CHARACTERISTIC_READ)
+                                    .doOnNext(notificationObservable -> {
+                                        //Read
+                                    })
+                                    .flatMap(notificationObservable -> notificationObservable) // <-- Notification has been set up, now observe value changes.
+                                    .subscribe(
+                                            bytes -> {
+                                                //handleNotification();
+                                                String hexByte = ByteUtils.byteArrayToHexString(bytes, true);
+                                                BleLogger.logData("GetSettings : " + hexByte);
+                                                handleSnackMessage("Received data : "+hexByte);
+                                            },
+                                            throwable -> {
+                                                //Handle notification
+                                            }
+                                    );
+
                         }, throwable -> {
                             handleSnackMessage("Cannot discover services: " + throwable.toString());
                         });
