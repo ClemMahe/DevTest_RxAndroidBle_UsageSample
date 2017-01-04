@@ -37,6 +37,10 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -50,8 +54,13 @@ dependencies {
 
     //RxAndroidBle
     compile "com.polidea.rxandroidble:rxandroidble:1.1.0"
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
 
     //Butterknife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    //Logs
+    compile 'com.orhanobut:logger:1.15'
 }

@@ -4,4 +4,5 @@
     <string name="functions_text_button_disconnect">Disconnect</string>
     <string name="functions_text_textview_defaultstate">State not defined</string>
     <string name="functions_text_button_getsettings">Get settings</string>
+    <string name="functions_text_button_getactivities">Get list activities</string>
 </resources>

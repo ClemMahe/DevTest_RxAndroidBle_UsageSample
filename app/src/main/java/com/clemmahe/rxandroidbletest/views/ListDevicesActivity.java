@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.clemmahe.rxandroidbletest.R;
 import com.polidea.rxandroidble.RxBleDevice;
@@ -44,34 +45,14 @@ public class ListDevicesActivity extends BaseActivity implements AdapterView.OnI
         listdevicesListview.setAdapter(adapter);
         listdevicesListview.setOnItemClickListener(this);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        listDevicesFound.clear();
-        adapter.notifyDataSetChanged();
-        //Start scan
-        scanSubscription = getAppClient().scanBleDevices()
-                .subscribe(
-                        rxBleScanResult -> {
-                            if(rxBleScanResult.getBleDevice().getName()!=null){
-                                addDeviceIfNeeded(rxBleScanResult.getBleDevice());
-                            }
-
-                        },
-                        throwable -> {
-                            // Handle an error here.
-                            handleErrorOnUi("Error state connection : " + throwable.getMessage());
-                        }
-                );
-    }
-
+    
     @Override
     protected void onPause() {
         super.onPause();
         // When done, just unsubscribe.
-        scanSubscription.unsubscribe();
+        if(scanSubscription!=null) scanSubscription.unsubscribe();
     }
+
 
     private void addDeviceIfNeeded(RxBleDevice bleDevice) {
         if (!listDevicesFound.contains(bleDevice)) {
@@ -89,5 +70,32 @@ public class ListDevicesActivity extends BaseActivity implements AdapterView.OnI
         startActivity(func);
     }
 
+
+
+    @Override
+    protected void appBluetoothReady(boolean ready, int status) {
+        if(!ready){
+            handleSnackMessage("Bluetooth not ready");
+        }else{
+
+            listDevicesFound.clear();
+            adapter.notifyDataSetChanged();
+
+            //Start scan
+            scanSubscription = getAppClient().scanBleDevices()
+                    .subscribe(
+                            rxBleScanResult -> {
+                                if(rxBleScanResult.getBleDevice().getName()!=null){
+                                    addDeviceIfNeeded(rxBleScanResult.getBleDevice());
+                                }
+
+                            },
+                            throwable -> {
+                                // Handle an error here.
+                                handleSnackMessage("Error state connection : " + throwable.getMessage());
+                            }
+                    );
+        }
+    }
 
 }

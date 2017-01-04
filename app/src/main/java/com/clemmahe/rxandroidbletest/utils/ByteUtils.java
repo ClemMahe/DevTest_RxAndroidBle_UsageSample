@@ -1,6 +1,7 @@
 package com.clemmahe.rxandroidbletest.utils;
 
 /**
+ * ByteUtils
  * Created by CMA10935 on 03/01/2017.
  */
 
@@ -34,6 +35,56 @@ public class ByteUtils {
             }
         }
         return returnStr.toString();
+    }
+
+    /**
+     * To know if it is a command indicate the end of data
+     *
+     * @param array
+     * @return
+     */
+    public static boolean isCommandFinish(byte[] array) {
+        if (array.length != 20) {
+            return false;
+        }
+        for (int i = 0; i < array.length; i++) {
+            int tmp = UByte(array[i]);
+            if (tmp != 0xff) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * To know if it is a command indicate the data is ready
+     *
+     * @param array
+     * @return
+     */
+    public static boolean isDataReady(byte[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            int tmp = UByte(array[i]);
+            if (tmp != 0xff) {
+                return true;
+            }
+        }
+
+        if (array.length == 20) {
+            int tmp = UByte(array[19]);
+            if (tmp == 0xee) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private static int UByte(byte b) {
+        if (b < 0)
+            return (b & 0xff);
+        else
+            return b;
     }
 
 }
