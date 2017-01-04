@@ -33,8 +33,6 @@ public class FunctionsDeviceActivity extends BaseActivity {
     Button functionsTextButtonDisconnect;
     @BindView(R.id.functions_button_getsettings)
     Button functionsButtonGetSettings;
-    @BindView(R.id.functions_button_getactivities)
-    Button functionsButtonGetactivities;
 
 
     private RxBleDevice device;
@@ -93,7 +91,7 @@ public class FunctionsDeviceActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.functions_button_connect, R.id.functions_button_disconnect, R.id.functions_button_getsettings, R.id.functions_button_getactivities})
+    @OnClick({R.id.functions_button_connect, R.id.functions_button_disconnect, R.id.functions_button_getsettings})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.functions_button_connect:
