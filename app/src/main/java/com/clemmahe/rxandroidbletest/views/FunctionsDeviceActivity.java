@@ -82,7 +82,7 @@ public class FunctionsDeviceActivity extends BaseActivity {
                 if (device != null && !isConnected()) {
 
                     //Prepare Connection
-                    connectionObservable = device.establishConnection(getApplicationContext(), false)
+                    connectionObservable = device.establishConnection(getApplicationContext(), true)
                             .takeUntil(disconnectTriggerSubject)
                             .compose(bindUntilEvent(PAUSE))
                             .doOnUnsubscribe(this::clearSubscription);
