@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.clemmahe.rxandroidbletest.R;
+import com.clemmahe.rxandroidbletest.utils.BleLogger;
 import com.polidea.rxandroidble.RxBleDevice;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class ListDevicesActivity extends BaseActivity implements AdapterView.OnI
     protected void onPause() {
         super.onPause();
         // When done, just unsubscribe.
-        if(scanSubscription!=null) scanSubscription.unsubscribe();
+        //if(scanSubscription!=null) scanSubscription.unsubscribe();
     }
 
 
@@ -85,10 +86,7 @@ public class ListDevicesActivity extends BaseActivity implements AdapterView.OnI
             scanSubscription = getAppClient().scanBleDevices()
                     .subscribe(
                             rxBleScanResult -> {
-                                if(rxBleScanResult.getBleDevice().getName()!=null){
-                                    addDeviceIfNeeded(rxBleScanResult.getBleDevice());
-                                }
-
+                                addDeviceIfNeeded(rxBleScanResult.getBleDevice());
                             },
                             throwable -> {
                                 // Handle an error here.
